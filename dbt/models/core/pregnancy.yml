@@ -1,0 +1,71 @@
+version: 2
+
+models:                  
+    - name: pregnancy
+      description: "Raw output of pregnancy"
+      tests:
+        - possible_duplicate_forms
+        - dbt_utils.expression_is_true:
+            name: "pregnancy_weight_must_be_positive"
+            expression: "weight > 0"
+        
+      columns:
+          - name: patient_uuid
+            tests:
+              - relationships:
+                  name: pregnancies_with_no_record_in_patient_table
+                  to: ref('patient')
+                  field: uuid
+
+          - name: pregnancy_test_done
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["pregnancy_test"]
+
+          - name: reported_by
+            tests:
+              - relationships:
+                  name: pregnancies_with_no_record_in_chv_table
+                  to: ref('chv')
+                  field: chv_uuid
+
+          - name: t_danger_signs_referral_follow_up
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_danger_signs_referral_follow_up_date"]
+
+          - name: t_fp_follow_up
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_fp_follow_up_date"]
+
+          - name: t_mental_health_responsive_caregiving_follow_up
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_mental_health_responsive_caregiving_follow_up_date"]
+
+          - name: t_pregnancy_confirmation_follow_up
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_pregnancy_confirmation_follow_up_date"]
+
+          - name: t_pregnancy_follow_up
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_pregnancy_follow_up_date"]
+
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+        
+          - name: pregnant
+            tests:
+                - not_null

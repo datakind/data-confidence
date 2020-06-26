@@ -1,0 +1,31 @@
+version: 2
+
+models:
+    - name: chv
+      description: "Raw output of chv"
+      columns:
+          - name: cha_uuid
+            description: "supervisor ID"
+            tests:
+                - relationships:
+                    name: chvs_with_no_supervisor
+                    to: ref('supervisor')
+                    field: cha_uuid
+                    table_specific_uuid: chv_uuid
+                    severity: error
+
+          - name: chv_uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+
+          - name: cu_uuid
+            description: "Household ID"
+            tests:        
+                - relationships:
+                    name: chvs_with_no_household
+                    to: ref('household')
+                    field: chv_area_id
+                    table_specific_uuid: chv_uuid
+                    severity: error

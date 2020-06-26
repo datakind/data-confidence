@@ -1,0 +1,21 @@
+version: 2
+
+models:                  
+    - name: supervisor
+      description: "Raw output of supervisor"
+      columns:
+          - name: cha_uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+                - relationships:
+                    name: supervisors_with_no_chvs
+                    to: ref('chv')
+                    field: cha_uuid
+                    table_specific_uuid: chu_uuid
+                    severity: error
+
+          - name: chu_uuid
+            tests:
+              - not_null

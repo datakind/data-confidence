@@ -1,0 +1,40 @@
+version: 2
+
+models:                
+    - name: assessment_follow_up
+      description: "Raw output of assessment_follow_up"
+      tests:
+        - possible_duplicate_forms
+
+      columns:
+          - name: patient_gender
+            tests:
+              - not_null
+
+          - name: patient_uuid
+            tests:
+              - relationships:
+                  name: afus_with_no_record_in_patient_table
+                  to: ref('patient')
+                  field: uuid
+
+          - name: reported_by
+            tests:
+              - relationships:
+                  name: afus_with_no_record_in_chv_table
+                  to: ref('chv')
+                  field: chv_uuid
+
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+
+          - name: condition
+            tests:
+              - not_null
+
+          - name: follow_up_method
+            tests:
+              - not_null

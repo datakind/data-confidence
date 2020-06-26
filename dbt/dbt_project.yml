@@ -1,0 +1,45 @@
+name: 'community_health_dbt'
+version: '0.0.1'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'default'
+
+# These configurations specify where dbt should look for different types of files.
+source-paths: ["models"]
+analysis-paths: ["analysis"] 
+test-paths: ["tests"]
+data-paths: ["data"]
+macro-paths: ["macros"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+    - "target"
+    - "dbt_modules"
+
+models:
+  community_health_dbt:
+    vars:
+      dbt_schema: 'analytics'
+    chv_level_iop:
+      vars:
+        patient_missingness_relation_prefix: 'tr_not_null_patient'
+        patient_missingness_cols: ['date_of_birth', 'sex', 'relationship_to_primary_caregiver']
+        assessment_missingness_relation_prefix: 'tr_not_null_assessment'
+        assessment_missingness_cols: ['c_patient_age', 'date_of_birth', 'needs_treatment', 'sex', 'patient_gender', 'hiv_status']
+        assessment_associated_missingness_relation_prefix: 'tr_associated_columns_not_null_assessment'
+        followup_missingness_relation_prefix: 'tr_not_null_assessment_follow_up'
+        followup_missingness_cols: ['patient_gender', 'condition', 'follow_up_method']
+        delivery_missingness_relation_prefix: 'tr_not_null_delivery'
+        delivery_missingness_cols: ['child_gender', 'mother_condition', 'babies_delivered', 'delivery_date', 'delivery_mode', 'delivery_place']
+        household_missingness_relation_prefix: 'tr_not_null_household'
+        household_missingness_cols: ['primary_contact']
+        household_visit_missingness_relation_prefix: 'tr_not_null_household_visit'
+        household_visit_missingness_cols: ['safe_water', 'household_uuid']
+        immunization_missingness_relation_prefix: 'tr_not_null_immunization'
+        immunization_missingness_cols: ['patient_date_of_birth']
+        postnatal_follow_up_missingness_relation_prefix: 'tr_not_null_postnatal_follow_up'
+        postnatal_follow_up_missingness_cols: ['date_of_birth', 'sex']
+        pregnancy_missingness_relation_prefix: 'tr_not_null_pregnancy'
+        pregnancy_missingness_cols: ['pregnant']
+        pregnancy_follow_up_missingness_relation_prefix: 'tr_not_null_pregnancy_follow_up'
+        pregnancy_follow_up_missingness_cols: ['still_pregnant', 'expected_date']

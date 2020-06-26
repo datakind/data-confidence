@@ -1,0 +1,186 @@
+version: 2
+
+models:
+    - name: assessment
+      description: "Raw output of assessment"
+      tests:
+        - dbt_utils.expression_is_true:
+            name: "jaundice_alert_negative"
+            expression: "not(fever = 'yes' and jaundice = 'yes')"
+            condition: "jaundice_alert = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "jaundice_alert_positive"
+            expression: "not(fever = 'no' and jaundice = 'no')"
+            condition: "jaundice_alert = 'yes'"
+
+        - dbt_utils.expression_is_true:
+            name: "loss_of_limb_movement_alert_negative"
+            expression: "not(fever = 'yes' and loss_of_limb_movement = 'yes')"
+            condition: "loss_of_limb_movement_alert = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "t_alert_response_negative"
+            expression: "not(skin_worm_alert = 'yes' or loss_of_limb_movement_alert = 'yes' or animal_bite_alert = 'yes' or jaundice_alert = 'yes' or sick_after_immunization_alert = 'yes')"
+            condition: "t_alert_response = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "t_treatment_follow_up_negative"
+            expression: "not((malaria_al_treatment_given = 'yes' or diarrhoea_ors_treatment_given = 'yes' or diarrhoea_zinc_treatment_given = 'yes') and r_has_danger_sign = 'yes')"
+            condition: "t_treatment_follow_up = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "t_referral_follow_up_negative"
+            expression: "not((danger_signs_ref = 'yes' and eye_care_ref = 'yes') or (danger_signs_ref = 'yes' and malnutrition_ref = 'yes') or (malnutrition_ref = 'yes' and eye_care_ref = 'yes'))"
+            condition: "t_referral_follow_up = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "eye_care_ref_negative"
+            expression: "not(eye_care_ref_1 = 'yes' or eye_care_ref_2 = 'yes')"
+            condition: "eye_care_ref = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "eye_care_ref_1_negative"
+            expression: "not(eye_colour = 'white')"
+            condition: "eye_care_ref_1 = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "eye_care_ref_1_negative"
+            expression: "not(follows_object = 'no' or squint = 'yes' or other_eye_problem = 'yes')"
+            condition: "eye_care_ref_2 = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "malnutrition_ref_negative"
+            expression: "not(muac_strap_color in ('red','yellow'))"
+            condition: "malnutrition_ref = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "c_has_malnutrition_negative"
+            expression: "not(muac_strap_color in ('red','yellow'))"
+            condition: "c_has_malnutrition = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "c_has_symptoms_negative"
+            expression: "not(cough = 'yes' or fast_breathing = 'yes' or mrdt_result = 'positive' or has_diarrhoea = 'yes' or feet_swollen = 'yes' or c_has_malnutrition = 'yes')"
+            condition: "c_has_symptoms = 'no'"
+
+        - dbt_utils.expression_is_true:
+            name: "needs_treatment_negative"
+            expression: "not(r_has_danger_sign = 'no' and patient_age_in_months >=2 and patient_age_in_years <= 5 and (cough = 'yes' or mrdt_result = 'positive' or has_diarrhoea = 'yes'))" 
+            condition: "needs_treatment = 'no'"
+
+        - possible_duplicate_forms
+
+      columns:
+          - name: animal_bite
+            tests:
+              - associated_columns_not_null:
+                  name: animal_bite_details_not_missing
+                  col_value: "'yes'"
+                  associated_columns: ["animal_bite_duration", "animal_bite_alert"]
+
+          # Notebook: LT-Step-03-IoP-Findings.ipynb (Followup Data Section 2)
+          - name: c_patient_age
+            tests:
+              - not_null
+              - not_negative_string_column:
+                  name: c_patient_age_is_positive
+
+          # Notebook: CHV Level: LT-Step-04-CHV-Level-Findings.ipyn
+          - name: cough
+            tests:
+              - associated_columns_not_null:
+                  name: cough_has_duration
+                  col_value: "'yes'"
+                  associated_columns: ["cough_duration"]
+
+          - name: date_of_birth
+            tests:
+              - not_null
+              - no_impossible_values:
+                  name: assessment_dob_is_not_zero
+                  values: "('0')"
+
+          # Notebook: CHV Level: LT-Step-04-CHV-Level-Findings.ipynb
+          - name: fever
+            tests:
+              - associated_columns_not_null:
+                  name: fever_has_duration
+                  col_value: "'yes'"
+                  associated_columns: ["fever_duration"]
+
+          # Notebook: CHV Level: LT-Step-04-CHV-Level-Findings.ipyn
+          - name: has_diarrhoea
+            tests:
+              - associated_columns_not_null:
+                  name: diarrhoea_has_duration
+                  col_value: "'yes'"
+                  associated_columns: ["diarrhoea_duration"]
+
+          # Notebook: CHV Level: LT-Step-04-CHV-Level-Findings.ipyn
+          - name: jaundice
+            tests:
+              - associated_columns_not_null:
+                  name: jaundice_has_details
+                  col_value: "'yes'"
+                  associated_columns: ["jaundice_alert", "jaundice_date", "jaundice_duration"]
+
+          - name: loss_of_limb_movement
+            tests:
+              - associated_columns_not_null:
+                  name: loss_of_limb_movement_has_details
+                  col_value: "'yes'"
+                  associated_columns: ["loss_of_limb_movement_alert", "loss_of_limb_movement_duration"]
+
+          - name: needs_treatment
+            tests:
+              - not_null
+
+          - name: patient_uuid
+            tests:
+              - not_null
+              - relationships:
+                  name: assessments_with_no_patient
+                  to: ref('patient')
+                  field: uuid
+
+          - name: reported_by_parent
+            tests:
+              - relationships:
+                  name: assessments_with_no_chv
+                  to: ref('chv')
+                  field: cu_uuid
+
+          - name: sex
+            tests:
+              - not_null
+
+          # Notebook: CHV Level: LT-Step-04-CHV-Level-Findings.ipyn
+          - name: sick_after_immunization
+            tests:
+              - associated_columns_not_null:
+                  name: sick_after_immunization_has_alert
+                  col_value: "'yes'"
+                  associated_columns: ["sick_after_immunization_alert"]
+
+          # Notebook: CHV Level: LT-Step-04-CHV-Level-Findings.ipyn
+          - name: skin_worm
+            tests:
+              - associated_columns_not_null:
+                  name: skin_worm_has_details
+                  col_value: "'yes'"
+                  associated_columns: ["skin_worm_alert", "skin_worm_duration"]
+
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+          
+          - name: patient_gender
+            tests: 
+                - not_null
+
+          - name: hiv_status
+            tests:
+                - not_null

@@ -1,0 +1,163 @@
+version: 2
+
+models:                
+    - name: immunization
+      description: "Raw output of immunization"
+      tests:
+        - possible_duplicate_forms
+        - dbt_utils.expression_is_true:
+            name: "dob_must_be_before_immunization_reported"
+            expression: "patient_date_of_birth < reported"
+
+        - dbt_utils.expression_is_true:
+            name: "immunization_weight_must_be_positive"
+            expression: "weight_kg > 0"
+
+      columns:
+          - name: bcg_given
+            tests:
+              - associated_columns_not_null:
+                  name: bcg_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["bcg_date"]
+
+          - name: birth_polio_given
+            tests:
+              - associated_columns_not_null:
+                  name: birth_polio_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["birth_polio_date"]
+
+          - name: ipv_given
+            tests:
+              - associated_columns_not_null:
+                  name: ipv_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["ipv_date"]
+
+          - name: measles_9months_given
+            tests:
+              - associated_columns_not_null:
+                  name: measles_9mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["measles_9months_date"]
+
+          - name: measles_18months_given
+            tests:
+              - associated_columns_not_null:
+                  name: measles_18mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["measles_18months_date"]
+
+          - name: needs_immunization_follow_up
+            tests:
+              - associated_columns_not_null:
+                  name: immunization_follow_up_has_dates
+                  col_value: "'yes'"
+                  associated_columns: ["r_immunization_follow_up_date", "t_immunization_follow_up_date"]
+
+          - name: c_patient_age
+            tests:
+              - not_negative_string_column:
+                  name: immunization_patient_age_is_positive
+
+
+          - name: patient_date_of_birth
+            tests:
+              - not_null
+
+          - name: patient_uuid
+            tests:
+              - relationships:
+                  name: immunizations_with_no_patient
+                  to: ref('patient')
+                  field: uuid
+
+          - name: reported_by
+            tests:
+              - relationships:
+                  name: immunizations_with_no_chv
+                  to: ref('chv')
+                  field: chv_uuid
+
+          - name: uuid
+            tests:
+                - unique
+                - not_null
+
+          - name: vitamin_a_6months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_6mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_6months_date"]
+
+          - name: vitamin_a_12months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_12mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_12months_date"]
+
+          - name: vitamin_a_18months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_18mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_18months_date"]
+
+          - name: vitamin_a_24months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_24mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_24months_date"]
+
+          - name: vitamin_a_30months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_30mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_30months_date"]
+
+          - name: vitamin_a_36months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_36mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_36months_date"]
+
+          - name: vitamin_a_42months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_36mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_42months_date"]
+
+          - name: vitamin_a_48months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_48mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_48months_date"]
+
+          - name: vitamin_a_54months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_54mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_54months_date"]
+
+          - name: vitamin_a_60months_given
+            tests:
+              - associated_columns_not_null:
+                  name: vit_a_60mo_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["vitamin_a_60months_date"]
+
+          - name: yellow_fever_given
+            tests:
+              - associated_columns_not_null:
+                  name: yellow_fever_given_with_date
+                  col_value: "'yes'"
+                  associated_columns: ["yellow_fever_date"]

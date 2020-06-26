@@ -1,0 +1,102 @@
+version: 2
+
+models:
+    - name: pregnancy_follow_up
+      description: "Raw output of pregnancy_follow_up"
+
+      tests:
+        - dbt_utils.expression_is_true:
+            name: "pfu_last_weight_must_be_positive"
+            expression: "last_weight > 0"
+
+        - dbt_utils.expression_is_true:
+            name: "pfu_weight_must_be_positive"
+            expression: "weight > 0"
+
+        - dbt_utils.expression_is_true:
+            name: "companion_age_must_be_positive"
+            expression: "companion_age > 0"
+        # TODO: This doesn't work yet because the macro doesn't handle specific columns at the moment
+        # - possible_duplicate_forms
+
+
+      columns:
+          - name: companion_present
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["companion_relationship", "companion_age", "companion_gender", "companion_relationship"]
+
+          - name: malaria_ipt
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["malaria_ipt_dose"]
+
+          - name: patient_id
+            tests:
+              - relationships:
+                  name: pfus_with_no_patient_id_in_patient_table
+                  to: ref('patient')
+                  field: uuid
+
+          - name: patient_uuid
+            tests:
+              - relationships:
+                  name: pfus_with_no_patient_uuid_in_patient_table
+                  to: ref('patient')
+                  field: uuid
+
+          - name: pregnancy_uuid
+            tests:
+              - relationships:
+                  name: pfus_with_no_pregnancy_in_pregnancy_table
+                  to: ref('pregnancy')
+                  field: uuid
+
+          # source_id does not appear to match chv_uuid, will need to revamp this test
+          # - name: source_id
+          #   # TODO: Most columns containing chv_uuid are named reported_by, but no column by that name exists in this table. Is this correct?
+          #   tests:
+          #     - relationships:
+          #         name: pfus_with_no_record_in_chv_table
+          #         to: ref('chv')
+          #         field: chv_uuid
+
+          - name: t_delivery
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_delivery_date"]
+
+          - name: t_mental_health_responsive_caregiving_follow_up
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_mental_health_responsive_caregiving_follow_up_date"]
+
+          - name: t_pregnancy_follow_up
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["t_pregnancy_follow_up_date"]
+
+          - name: tt
+            tests:
+              - associated_columns_not_null:
+                  col_value: "'yes'"
+                  associated_columns: ["tt_dose"]
+
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+      
+          - name: still_pregnant
+            tests:
+                - not_null
+
+          - name: expected_date
+            tests:
+                - not_null

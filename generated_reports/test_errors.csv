@@ -1,0 +1,8 @@
+,test_name,error
+0,chv_different_temperature_distribution,False
+1,improper_pregnancy_follow_up_sequence,False
+2,OPV123_given_too_early_in_immunization,False
+3,tr_households_per_community,Output view does not contain UUID
+4,tr_valid_date_patient_date_of_birth__1885_01_01,Output view does not contain UUID
+5,tr_valid_date_patient_reported__2010_01_01,Output view does not contain UUID
+6,OPV123_given_too_early_in_immunization,Output view does not contain UUID

@@ -1,0 +1,79 @@
+{
+  "data_asset_type": "CustomSqlAlchemyDataset",
+  "expectation_suite_name": "tests",
+  "expectations": [
+    {
+      "expectation_type": "expect_similar_means_across_reporters",
+      "kwargs": {
+        "key": "reported_by",
+        "quantity": "temperature",
+        "form_name": "assessment"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "expect_proper_form_sequence_across_tables",
+      "kwargs": {
+        "first_form_name": "delivery",
+        "patient_key": "patient_uuid",
+        "second_form_name": "pregnancy_follow_up",
+        "time_key": "reported"
+      },
+      "meta": {}
+    },
+    {
+      "expectation_type": "immunization_opv_given_too_early",
+      "kwargs": {
+        "form_name": "immunization",
+        "patient_key": "patient_uuid",
+        "unpack_key": "immunization_details",
+        "key": "uuid"
+      },
+      "meta": {}
+    }
+  ],
+  "meta": {
+    "SampleExpectationsDatasetProfiler": {
+      "batch_kwargs": {
+        "datasource": "mm",
+        "limit": 1000,
+        "schema": "analytics",
+        "table": "assessment"
+      },
+      "created_at": 1586727775.749671,
+      "created_by": "SampleExpectationsDatasetProfiler"
+    },
+    "citations": [
+      {
+        "batch_kwargs": {
+          "datasource": "mm",
+          "limit": 1000,
+          "schema": "analytics",
+          "table": "assessment"
+        },
+        "batch_markers": {
+          "ge_load_time": "20200412T214255.482833Z"
+        },
+        "batch_parameters": null,
+        "citation_date": "2020-04-12T17:42:55.758054",
+        "comment": "SampleExpectationsDatasetProfiler added a citation based on the current batch."
+      }
+    ],
+    "columns": {
+      "index": {
+        "description": ""
+      },
+      "reported_by": {
+        "description": ""
+      },
+      "temperature": {
+        "description": ""
+      }
+    },
+    "great_expectations.__version__": "0.10.10",
+    "notes": {
+      "content": [],
+      "format": "markdown"
+    }
+  }
+}

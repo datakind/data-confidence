@@ -1,0 +1,73 @@
+version: 2
+
+models:                
+    - name: delivery
+      description: "Raw output of delivery"
+      tests:
+        - possible_duplicate_forms
+
+      columns:
+          - name: child_gender
+            tests:
+              - not_null
+
+          - name: chw_id
+            tests:
+              - relationships:
+                  name: deliveries_with_no_chw_in_chv_table
+                  to: ref('chv')
+                  field: chv_uuid
+
+          - name: patient_uuid
+            tests:
+              - relationships:
+                  name: deliveries_with_no_patient
+                  to: ref('patient')
+                  field: uuid
+
+          - name: reported_by
+            tests:
+              - relationships:
+                  name: deliveries_with_no_reported_by_chv
+                  to: ref('chv')
+                  field: chv_uuid
+
+          - name: t_death_report
+            tests:
+              - associated_columns_not_null:
+                  name: death_report_has_date
+                  col_value: "'yes'"
+                  associated_columns: ["t_death_report_date"]
+
+          - name: t_postnatal_follow_up
+            tests:
+              - associated_columns_not_null:
+                  name: postnatal_follow_up_has_date
+                  col_value: "'yes'"
+                  associated_columns: ["t_postnatal_follow_up_date"]
+
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+          
+          - name: mother_condition
+            tests:
+                - not_null
+
+          - name: babies_delivered
+            tests:
+                - not_null       
+
+          - name: delivery_date
+            tests:
+                - not_null  
+
+          - name: delivery_mode
+            tests:
+                - not_null  
+
+          - name: delivery_place
+            tests:
+                - not_null 

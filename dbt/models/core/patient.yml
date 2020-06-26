@@ -1,0 +1,39 @@
+version: 2
+
+models:
+    # Notebook: LT-Step-03-IoP-Findings.ipynb (Patient Data Section 1)
+    - name: patient
+      description: "Raw output of patient"
+      columns:
+          - name: date_of_birth
+            tests:
+              - not_null
+              - valid_date: {"earliest_date": "1885-01-01"}
+
+          # Notebook: LT-Step-03-IoP-Findings.ipynb (Household Section 1)
+          - name: parent_uuid
+            tests:
+              - not_null
+              - relationships:
+                  name: patients_with_no_household
+                  to: ref('household')
+                  field: uuid
+
+          - name: relationship_to_primary_caregiver
+            tests:
+              - not_null:
+                    name: patients_with_no_primary_caregiver
+
+          - name: sex
+            tests:
+              - not_null
+
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+
+          - name: reported
+            tests: 
+                - valid_date: {"earliest_date": "2010-01-01"}

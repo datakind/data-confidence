@@ -1,0 +1,43 @@
+version: 2
+
+models:                
+    - name: postnatal_follow_up
+      description: "Raw output of postnatal_follow_up"
+      tests:
+        - possible_duplicate_forms
+
+      columns:
+          - name: date_of_birth
+            tests:
+              - not_null
+
+          - name: delivery_uuid
+            tests:
+              - relationships:
+                  name: postnatal_follow_ups_with_no_delivery
+                  to: ref('delivery')
+                  field: uuid
+        
+          - name: patient_uuid
+            tests:
+              - relationships:
+                  name: postnatal_follow_ups_with_no_patient
+                  to: ref('patient')
+                  field: uuid
+
+          - name: reported_by
+            tests:
+              - relationships:
+                  name: postnatal_follow_ups_with_no_chv
+                  to: ref('chv')
+                  field: chv_uuid
+
+          - name: sex
+            tests:
+              - not_null
+
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null

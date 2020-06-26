@@ -1,0 +1,146 @@
+TEST COVERAGE REPORT
+
+
+**Data Below has Been Redacted**
+
+----------------Aggregate by Table-------------------
+
+                      Unique Rows with Error  Total Rows     % Error
+Table                                                               
+patient                                ****      ****   ****
+assessment                             ****      ****   ****
+assessment_follow_up                   ****      ****   ****
+pregnancy                              ****      ****   ****
+pregnancy_follow_up                    ****      ****   ****
+postnatal_follow_up                    ****      ****   ****
+chv                                    ****      ****   ****
+supervisor                             ****      ****   ****
+household                              ****      ****   ****
+delivery                               ****      ****   ****
+immunization                           ****      ****   ****
+
+
+----------------Aggregate by Test-------------------
+
+                                                                  Table  Errors     % Error
+Test                                                                                       
+tr_afus_with_no_record_in_patient_table                         patient   ****   ****
+tr_age_compare_relationship_to_caregiver                        patient   ****   ****
+tr_assessments_with_no_patient                                  patient   ****   ****
+tr_calculated_and_reported_age_comparison                       patient   ****   ****
+tr_compare_patient_assessment_dob                               patient   ****   ****
+tr_compare_patient_assessment_sex                               patient   ****   ****
+tr_compare_reported_timestamps                                  patient   ****   ****
+tr_deliveries_with_no_patient                                   patient   ****   ****
+tr_dob_and_registration_date_alignment                          patient   ****   ****
+tr_households_with_no_patients                                  patient   ****   ****
+tr_households_with_no_primary_contact                           patient   ****   ****
+tr_immunizations_with_no_patient                                patient   ****   ****
+tr_no_assessment_for_patient                                    patient   ****   ****
+tr_not_null_patient_parent_uuid                                 patient   ****   ****
+tr_not_null_patient_date_of_birth                               patient   ****   ****
+tr_not_null_patient_sex                                         patient   ****   ****
+tr_patients_with_no_household                                   patient   ****   ****
+tr_patients_with_no_primary_caregiver                           patient  2****   ****
+tr_pfus_with_no_patient_id_in_patient_table                     patient   ****   ****
+tr_pfus_with_no_patient_uuid_in_patient_table                   patient   ****   ****
+tr_postnatal_follow_ups_with_no_patient                         patient   ****   ****
+tr_pregnancies_with_no_record_in_patient_table                  patient   ****   ****
+tr_age_compare_relationship_to_caregiver                     assessment   ****   ****
+tr_assessment_dob_is_not_zero                                assessment   ****   ****
+tr_assessments_for_adults                                    assessment   ****   ****
+tr_assessments_with_no_patient                               assessment   ****   ****
+tr_c_patient_age_is_positive                                 assessment   ****   ****
+tr_calculated_and_reported_age_comparison                    assessment   ****   ****
+tr_compare_patient_assessment_dob                            assessment   ****   ****
+tr_compare_patient_assessment_sex                            assessment   ****   ****
+tr_compare_reported_timestamps                               assessment   ****   ****
+tr_jaundice_has_details                                      assessment   ****   ****
+tr_jaundice_alert_negative                                   assessment   ****   ****
+tr_malaria_testing_and_treatment                             assessment   ****   ****
+tr_loss_of_limb_movement_has_details                         assessment   ****   ****
+tr_no_assessment_for_patient                                 assessment   ****   ****
+tr_no_followup                                               assessment   ****   ****
+tr_not_null_assessment_date_of_birth                         assessment   ****   ****
+tr_not_null_assessment_patient_gender                        assessment   ****   ****
+tr_not_null_assessment_hiv_status                            assessment   ****   ****
+tr_not_null_assessment_sex                                   assessment   ****   ****
+tr_not_null_assessment_patient_uuid                          assessment   ****   ****
+tr_possible_duplicate_forms_assessment_                      assessment   ****   ****
+tr_t_treatment_follow_up_negative                            assessment   ****   ****
+tr_afus_with_no_record_in_patient_table            assessment_follow_up   ****   ****
+tr_no_followup                                     assessment_follow_up   ****   ****
+tr_not_null_assessment_follow_up_condition         assessment_follow_up   ****   ****
+tr_not_null_assessment_follow_up_patient_gender    assessment_follow_up   ****   ****
+tr_not_null_assessment_follow_up_follow_up_method  assessment_follow_up   ****   ****
+tr_possible_duplicate_forms_assessment_follow_up_  assessment_follow_up   ****   ****
+tr_not_null_pregnancy_pregnant                                pregnancy   ****   ****
+tr_pfus_with_no_pregnancy_in_pregnancy_table                  pregnancy   ****   ****
+tr_possible_duplicate_forms_pregnancy_                        pregnancy   ****   ****
+tr_pregnancies_with_no_record_in_patient_table                pregnancy   ****   ****
+tr_companion_age_must_be_positive                   pregnancy_follow_up   ****   ****
+tr_not_null_pregnancy_follow_up_expected_date       pregnancy_follow_up   ****   ****
+tr_pfu_last_weight_must_be_positive                 pregnancy_follow_up   ****   ****
+tr_pfus_with_no_patient_id_in_patient_table         pregnancy_follow_up   ****   ****
+tr_pfus_with_no_patient_uuid_in_patient_table       pregnancy_follow_up   ****   ****
+tr_pfus_with_no_pregnancy_in_pregnancy_table        pregnancy_follow_up   ****   ****
+improper_pregnancy_follow_up_sequence               pregnancy_follow_up   ****   ****
+tr_not_null_postnatal_follow_up_date_of_birth       postnatal_follow_up   ****   ****
+tr_not_null_postnatal_follow_up_sex                 postnatal_follow_up   ****   ****
+tr_postnatal_follow_ups_with_no_delivery            postnatal_follow_up   ****   ****
+tr_possible_duplicate_forms_postnatal_follow_up_    postnatal_follow_up   ****   ****
+tr_postnatal_follow_ups_with_no_patient             postnatal_follow_up   ****   ****
+tr_chvs_with_no_supervisor                                          chv   ****   ****
+tr_chvs_with_no_household                                           chv   ****   ****
+tr_deliveries_with_no_chw_in_chv_table                              chv   ****   ****
+tr_households_with_no_community_in_chv_table                        chv   ****   ****
+tr_supervisors_with_no_chvs                                         chv   ****   ****
+chv_different_temperature_distribution                              chv   ****   ****
+tr_chvs_with_no_supervisor                                   supervisor   ****   ****
+tr_supervisors_with_no_chvs                                  supervisor   ****   ****
+tr_chvs_with_no_household                                     household   ****   ****
+tr_household_visits_with_household                            household   ****   ****
+tr_households_with_no_community_in_chv_table                  household   ****   ****
+tr_households_with_no_patients                                household   ****   ****
+tr_households_with_no_primary_contact                         household   ****   ****
+tr_not_null_household_primary_contact                         household   ****   ****
+tr_patients_with_no_household                                 household   ****   ****
+tr_deliveries_with_no_chw_in_chv_table                         delivery   ****   ****
+tr_deliveries_with_no_patient                                  delivery   ****   ****
+tr_not_null_delivery_child_gender                              delivery   ****   ****
+tr_possible_duplicate_forms_delivery_                          delivery   ****   ****
+tr_postnatal_follow_ups_with_no_delivery                       delivery   ****   ****
+tr_bcg_given_with_date                                     immunization   ****   ****
+tr_birth_polio_given_with_date                             immunization   ****   ****
+tr_dob_must_be_before_immunization_reported                immunization   ****   ****
+tr_immunization_patient_age_is_positive                    immunization   ****   ****
+tr_immunization_follow_up_has_dates                        immunization   ****   ****
+tr_immunizations_with_no_patient                           immunization   ****   ****
+tr_immunization_weight_must_be_positive                    immunization   ****   ****
+tr_ipv_given_with_date                                     immunization   ****   ****
+tr_measles_9mo_given_with_date                             immunization   ****   ****
+tr_measles_18mo_given_with_date                            immunization   ****   ****
+tr_not_null_immunization_patient_date_of_birth             immunization   ****   ****
+tr_possible_duplicate_forms_immunization_                  immunization   ****   ****
+tr_vit_a_12mo_given_with_date                              immunization   ****   ****
+tr_vit_a_18mo_given_with_date                              immunization   ****   ****
+tr_vit_a_24mo_given_with_date                              immunization   ****   ****
+tr_vit_a_30mo_given_with_date                              immunization   ****   ****
+tr_vit_a_36mo_given_with_date                              immunization   ****   ****
+tr_vit_a_48mo_given_with_date                              immunization   ****   ****
+tr_vit_a_54mo_given_with_date                              immunization   ****   ****
+tr_vit_a_6mo_given_with_date                               immunization   ****   ****
+tr_yellow_fever_given_with_date                            immunization   ****   ****
+
+
+-------------------Test Errors----------------------
+
+                                                                             error
+test_name                                                                         
+chv_different_temperature_distribution                                       False
+improper_pregnancy_follow_up_sequence                                        False
+OPV123_given_too_early_in_immunization                                       False
+tr_households_per_community                      Output view does not contain UUID
+tr_valid_date_patient_date_of_birth__1885_01_01  Output view does not contain UUID
+tr_valid_date_patient_reported__2010_01_01       Output view does not contain UUID
+OPV123_given_too_early_in_immunization           Output view does not contain UUID

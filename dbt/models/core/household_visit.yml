@@ -1,0 +1,30 @@
+version: 2
+
+models:                
+    - name: household_visit
+      description: "Raw output of household_visit"
+      
+      columns:
+          - name: uuid
+            tests:
+                - unique
+                - not_null
+
+          - name: reported_by
+            tests:
+              - relationships:
+                  name: household_visits_with_no_chv
+                  to: ref('chv')
+                  field: chv_uuid
+
+          - name: household_uuid
+            tests:
+              - not_null
+              - relationships:
+                  name: household_visits_with_household
+                  to: ref('household')
+                  field: uuid
+
+          - name: safe_water
+            tests:
+              - not_null

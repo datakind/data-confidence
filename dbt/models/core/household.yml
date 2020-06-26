@@ -1,0 +1,36 @@
+version: 2
+
+models:                
+    - name: household
+      description: "Raw output of household"
+      columns:
+          - name: chv_area_id
+            description: "Community ID for a given household"
+            tests:
+                - relationships:
+                    name: households_with_no_community_in_chv_table
+                    to: ref('chv')
+                    field: cu_uuid
+                    severity: error
+
+          # Notebook: LT-Step-03-IoP-Findings.ipynb (Household Section 3)
+          - name: primary_contact
+            description: "Primary contact is not null and in the patients table"
+            tests:
+                - not_null
+                - relationships:
+                    name: households_with_no_primary_contact
+                    to: ref('patient')
+                    field: uuid
+
+          # Notebook: LT-Step-03-IoP-Findings.ipynb (Household Section 2)
+          - name: uuid
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+                - relationships:
+                    name: households_with_no_patients
+                    to: ref('patient')
+                    field: parent_uuid
+                    severity: error

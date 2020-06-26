@@ -1,0 +1,45 @@
+
+IOP TEST COVERAGE REPORT
+
+----- Summary ----- 
+Total tests run: 165
+Passed: **
+Failed: **
+Warning: *
+Error: 0
+Skipped: 0
+IoP Records: *****
+
+----- Details ----- 
+                            Total tests run  Passed Failed  Warning  Error  \
+Data Source                                                                  
+assessment                               45     **   **        0      0   
+patient                                  27     **   **        1      0   
+immunization                             26     **   **        0      0   
+pregnancy_follow_up                      16     **   **        0      0   
+chv                                      16     **   **        0      0   
+delivery                                 15     **   **        0      0   
+pregnancy                                14     **   **        0      0   
+household                                12     **   **        0      0   
+assessment_follow_up                     10     **   **        0      0   
+postnatal_follow_up                       8     **   **        0      0   
+household_visit                           6     **   **        0      0   
+supervisor                                6     **   **        0      0   
+assessment_followup_timing                1     **   **        0      0   
+
+                            Skipped  IoP Records  
+Data Source                                       
+assessment                        0     ***  
+patient                           0     ***  
+immunization                      0     ***  
+pregnancy_follow_up               0     ***  
+chv                               0     ***  
+delivery                          0     ***  
+pregnancy                         0     ***  
+household                         0     ***  
+assessment_follow_up              0     ***  
+postnatal_follow_up               0     ***  
+household_visit                   0     ***  
+supervisor                        0     ***  
+assessment_followup_timing        0     ***  
+
