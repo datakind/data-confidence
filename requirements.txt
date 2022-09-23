@@ -84,7 +84,7 @@ plotly==4.8.1
 pluggy==0.13.1
 prometheus-client==0.7.1
 prompt-toolkit==3.0.5
-protobuf==3.12.1
+protobuf==3.18.3
 psycopg2-binary==2.8.5
 ptyprocess==0.6.0
 py==1.10.0
